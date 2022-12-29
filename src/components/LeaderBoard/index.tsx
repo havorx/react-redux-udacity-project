@@ -1,12 +1,13 @@
 import { useInitialState } from "../../hooks/useInitialState";
 import { Card } from "react-bootstrap";
 import "./styles.scss";
+import { Users } from "../../models/users";
 
 function LeaderBoard() {
   const { users } = useInitialState();
 
   const leaderBoard = Object.values(users)
-    .map((user: any) => ({
+    .map((user: Users | any) => ({
       id: user.id,
       name: user.name,
       avatarURL: user.avatarURL,
@@ -23,9 +24,7 @@ function LeaderBoard() {
         {leaderBoard.map((board, index) => (
           <Card key={board.id}>
             <Card.Header className="card-header">
-              <div>
-                {board.name}
-              </div>
+              <div>{board.name}</div>
               <div className="card-header__count">{index + 1}</div>
             </Card.Header>
             <Card.Body>

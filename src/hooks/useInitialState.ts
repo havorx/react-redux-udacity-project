@@ -6,6 +6,7 @@ import {
   saveQuestionAnswerThunk,
   saveQuestionThunk,
 } from "../thunk";
+import {FormatQuestion, Questions} from '../models/questions';
 
 export const useInitialState = () => {
   const question = useSelector((state: RootState) => state.questions);
@@ -21,16 +22,15 @@ export const useInitialState = () => {
     getInitialDataThunk()(dispatch);
   };
 
-  const handleSaveQuestion = (question: any) => {
+  const handleSaveQuestion = (question: FormatQuestion) => {
     saveQuestionThunk(question)(dispatch);
   };
 
   const handleSaveQuestionAnswer = (
-    authState: any,
-    questionId: any,
-    option: any
+    authState: string,
+    questionId: string,
+    option: string
   ) => {
-    console.log(1111, authState, questionId, option);
     saveQuestionAnswerThunk({
       authUser: authState,
       qid: questionId,

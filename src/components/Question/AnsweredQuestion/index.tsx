@@ -2,10 +2,14 @@ import { Card, ListGroup, ProgressBar } from "react-bootstrap";
 import { useInitialState } from "../../../hooks/useInitialState";
 import { calculateVotesPercentage } from "../../../utils";
 
-const AnsweredQuestion = ({ questionId }: any) => {
+interface Props {
+  questionId: string;
+}
+
+const AnsweredQuestion = ({ questionId }: Props) => {
   const { users, questions, authUser } = useInitialState();
-  const question = (questions as any)[questionId] || null;
-  const author = question ? (users as any)[question.author] : null;
+  const question = questions[questionId] || null;
+  const author = question ? users[question.author] : null;
 
   const { optionOne, optionTwo } = question;
   const { name } = author;

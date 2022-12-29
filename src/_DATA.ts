@@ -1,3 +1,5 @@
+import {FormatQuestion, QuestionAnswer, Questions} from './models/questions';
+
 let users = {
   sarahedo: {
     id: "sarahedo",
@@ -134,7 +136,11 @@ export function _getQuestions() {
   });
 }
 
-function formatQuestion({ optionOneText, optionTwoText, author }: any) {
+function formatQuestion({
+  optionOneText,
+  optionTwoText,
+  author,
+}: FormatQuestion): Questions {
   return {
     id: generateUID(),
     timestamp: Date.now(),
@@ -150,7 +156,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }: any) {
   };
 }
 
-export function _saveQuestion(question: any) {
+export function _saveQuestion(question: FormatQuestion) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
     const formattedQuestion = formatQuestion(question);
@@ -176,15 +182,15 @@ export function _saveQuestion(question: any) {
   });
 }
 
-export function _saveQuestionAnswer({ authedUser, qid, answer }: any) {
+export function _saveQuestionAnswer({ authUser, qid, answer }: QuestionAnswer) {
   return new Promise<void>((res, rej) => {
     setTimeout(() => {
       users = {
         ...users,
-        [authedUser]: {
-          ...(users as any)[authedUser],
+        [authUser]: {
+          ...(users as any)[authUser],
           answers: {
-            ...(users as any)[authedUser].answers,
+            ...(users as any)[authUser].answers,
             [qid]: answer,
           },
         },
@@ -196,7 +202,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }: any) {
           ...(questions as any)[qid],
           [answer]: {
             ...(questions as any)[qid][answer],
-            votes: (questions as any)[qid][answer].votes.concat([authedUser]),
+            votes: (questions as any)[qid][answer].votes.concat([authUser]),
           },
         },
       };

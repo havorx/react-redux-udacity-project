@@ -2,18 +2,19 @@ import { Tab, Tabs } from "react-bootstrap";
 import { useInitialState } from "../../hooks/useInitialState";
 import QuestionList from "../../components/Question/QuestionList";
 import "./styles.scss";
+import { Questions } from "../../models/questions";
 
 const HomePage = () => {
   const { users, questions, authUser } = useInitialState();
-  const lstAns = Object.keys((users as any)[authUser].answers);
+  const lstAns = Object.keys(users[authUser].answers);
 
-  const formattedAnswerList = Object.values(questions as any)
-    .filter((ques: any) => lstAns.includes(ques.id))
+  const formattedAnswerList = Object.values(questions)
+    .filter((question: any) => lstAns.includes(question.id))
     .sort((a: any, b: any) => {
       return b.timestamp - a.timestamp;
     });
 
-  const formattedUnanswerList = Object.values(questions as any)
+  const formattedUnanswerList = Object.values(questions)
     .filter((ques: any) => !lstAns.includes(ques.id))
     .sort((a: any, b: any) => {
       return b.timestamp - a.timestamp;

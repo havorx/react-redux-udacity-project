@@ -11,6 +11,7 @@ import {
   saveQuestionSuccess,
 } from "../slices/questionSlice";
 import { Dispatch } from "@reduxjs/toolkit";
+import {FormatQuestion, QuestionAnswer} from '../models/questions';
 
 export function getInitialDataThunk() {
   return async (dispatch: Dispatch) => {
@@ -20,7 +21,7 @@ export function getInitialDataThunk() {
   };
 }
 
-export function saveQuestionThunk(question: any) {
+export function saveQuestionThunk(question: FormatQuestion) {
   return (dispatch: Dispatch) => {
     return saveQuestion(question).then((questionRes) => {
       dispatch(saveQuestionSuccess(questionRes));
@@ -29,8 +30,7 @@ export function saveQuestionThunk(question: any) {
   };
 }
 
-export function saveQuestionAnswerThunk(data: any) {
-  console.log(data);
+export function saveQuestionAnswerThunk(data: QuestionAnswer) {
   const { authUser, qid, answer } = data;
   return (dispatch: Dispatch) => {
     return saveQuestionAnswer(authUser, qid, answer).then(() => {

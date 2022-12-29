@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { useInitialState } from "../../../hooks/useInitialState";
 import "./styles.scss";
 
-const QuestionList = ({ questionId }: any) => {
+interface Props {
+  questionId: string;
+}
+
+const QuestionList = ({ questionId }: Props) => {
   const { users, questions } = useInitialState();
 
-  const question = (questions as any)[questionId];
-  const user = (users as any)[question.author];
+  const question = questions[questionId];
+  const user = users[question.author];
 
   return (
     <Card style={{ margin: "1rem" }}>

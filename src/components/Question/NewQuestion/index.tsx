@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {ChangeEvent, FormEvent, useState} from 'react';
 import { Button, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useInitialState } from "../../../hooks/useInitialState";
@@ -16,8 +16,8 @@ const NewQuestion = () => {
   });
   const { optionOne, optionTwo } = optionValue;
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const question = {
       author: authUser,
       optionOneText: optionOne,
@@ -30,8 +30,8 @@ const NewQuestion = () => {
     });
     navigate("/");
   };
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement> ) => {
+    const { name, value } = event.target;
     setOptionValue((prevState) => ({
       ...prevState,
       [name]: value,

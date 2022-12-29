@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Questions } from "../models/questions";
 
-const initialState = { status: "", data: {} };
+interface QuestionState {
+  status: string;
+  data: Questions | any;
+}
+
+const initialState: QuestionState = { status: "", data: {} };
 
 const questionSlice = createSlice({
   name: "question",
@@ -12,15 +18,15 @@ const questionSlice = createSlice({
     },
     addAnswerToQuestionSuccess(state, action) {
       state.status = "successfully";
-      const votes = (state.data as any)[action.payload.qid][
+      const votes = state.data[action.payload.qid][
         action.payload.answer
       ].votes.concat([action.payload.authUser]);
       const answers = {
-        ...(state.data as any)[action.payload.qid][action.payload.answer],
+        ...state.data[action.payload.qid][action.payload.answer],
         votes: votes,
       };
-      (state.data as any)[action.payload.qid] = {
-        ...(state.data as any)[action.payload.qid],
+      state.data[action.payload.qid] = {
+        ...state.data[action.payload.qid],
         [action.payload.answer]: answers,
       };
     },
@@ -29,8 +35,7 @@ const questionSlice = createSlice({
     },
     saveQuestionSuccess(state, action) {
       state.status = "successfully";
-      const question = { ...action.payload };
-      (state.data as any)[action.payload.id] = question;
+      state.data[action.payload.id] = { ...action.payload };
     },
     saveQuestionAnswerRequest(state) {
       state.status = "loading";
@@ -43,9 +48,7 @@ const { actions, reducer } = questionSlice;
 export const {
   getListQuestionSuccess,
   addAnswerToQuestionSuccess,
-  saveQuestionRequest,
   saveQuestionSuccess,
-  saveQuestionAnswerRequest,
 } = actions;
 
 export default reducer;

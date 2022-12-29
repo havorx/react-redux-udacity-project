@@ -6,7 +6,7 @@ import { useInitialState } from "../../../hooks/useInitialState";
 const QuestionDetail = () => {
   const { users, authUser } = useInitialState();
   const { questionId = "" } = useParams();
-  const answers = Object.keys((users as any)[authUser].answers);
+  const answers = Object.keys(users[authUser].answers);
   const unanswered = answers.includes(questionId);
 
   return (

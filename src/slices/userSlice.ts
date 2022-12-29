@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Users } from "../models/users";
 
-const initialState = { status: "", data: {} };
+interface UserState {
+  status: string;
+  data: Users | any;
+}
+
+const initialState: UserState = { status: "", data: {} };
 
 const userSlice = createSlice({
   name: "user",
@@ -23,14 +29,13 @@ const userSlice = createSlice({
     addAnswerToUsersSuccess(state, action) {
       state.status = "successfully";
       const answers = {
-        ...(state.data as any)[action.payload.authUser].answers,
+        ...state.data[action.payload.authUser].answers,
         [action.payload.qid]: action.payload.answer,
       };
-      const auth = {
-        ...(state.data as any)[action.payload.authUser],
+      state.data[action.payload.authUser] = {
+        ...state.data[action.payload.authUser],
         answers: answers,
       };
-      (state.data as any)[action.payload.authUser] = auth;
     },
     addQuestionToUsersReq(state) {
       state.status = "loading";
@@ -38,11 +43,9 @@ const userSlice = createSlice({
     addQuestionToUsersSuccess(state, action) {
       state.status = "successfully";
       const author = action.payload.author;
-      const questions = (state.data as any)[author].questions.concat(
-        action.payload.id
-      );
-      (state.data as any)[action.payload.author] = {
-        ...(state.data as any)[action.payload.author],
+      const questions = state.data[author].questions.concat(action.payload.id);
+      state.data[action.payload.author] = {
+        ...state.data[action.payload.author],
         questions: questions,
       };
     },
@@ -58,7 +61,6 @@ export const {
   getListUsersSuccess,
   addAnswerToUsersSuccess,
   addQuestionToUsersSuccess,
-  initDataRequest,
 } = actions;
 
 export default reducer;

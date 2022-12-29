@@ -4,6 +4,7 @@ import {
   _saveQuestion,
   _saveQuestionAnswer,
 } from "../_DATA";
+import {FormatQuestion, Questions} from '../models/questions';
 
 export function getAllData() {
   return Promise.all([_getUsers(), _getQuestions()]).then(
@@ -14,10 +15,10 @@ export function getAllData() {
   );
 }
 
-export function saveQuestion(question: any) {
+export function saveQuestion(question: FormatQuestion) {
   return _saveQuestion(question);
 }
 
-export function saveQuestionAnswer(authedUser: any, qid: any, answer: any) {
-  return _saveQuestionAnswer({ authedUser, qid, answer });
+export function saveQuestionAnswer(authUser: string, qid: string, answer: string) {
+  return _saveQuestionAnswer({ authUser, qid, answer });
 }

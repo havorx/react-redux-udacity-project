@@ -2,7 +2,6 @@ import { useInitialState } from "../../hooks/useInitialState";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
-import logo from "../../assets/vite.svg";
 import "./styles.scss";
 
 function LoginPage() {
@@ -12,7 +11,7 @@ function LoginPage() {
 
   const listUsers = Object.keys(users).map((id: string) => ({
     value: id,
-    label: (users as any)[id].name,
+    label: users[id].name,
   }));
 
   const handleChangeUsers = (e: FormEvent<HTMLSelectElement>) => {

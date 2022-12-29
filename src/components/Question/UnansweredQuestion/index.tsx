@@ -3,17 +3,21 @@ import { Button, Card, Form } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useInitialState } from "../../../hooks/useInitialState";
 
-const UnansweredQuestion = ({ questionId }: any) => {
-  const formRef = useRef<any>();
+interface Props {
+  questionId: string;
+}
+
+const UnansweredQuestion = ({ questionId }: Props) => {
+  const formRef = useRef<HTMLFormElement>(null);
   const { users, questions, handleSaveQuestionAnswer, authUser } =
     useInitialState();
 
-  const question = (questions as any)[questionId];
-  const author = question ? (users as any)[question.author] : null;
+  const question = questions[questionId];
+  const author = question ? users[question.author] : null;
 
   const handleSubmit = (event: FormEvent<HTMLElement>) => {
     event.preventDefault();
-    const answer = formRef.current.answer.value;
+    const answer = formRef.current?.answer.value;
     if (answer !== "") {
       handleSaveQuestionAnswer(authUser, question.id, answer);
     }
