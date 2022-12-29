@@ -8,6 +8,7 @@
 * Redux-Toolkit
 * React Router
 * React-Bootstrap
+* Typescript
 
 ## To run the app locally:
 
@@ -17,3 +18,4 @@
   displayed. Open it in the browser to see the app.
 - Prettier is used for code formatting, and ESLint is used for code linting. You can run
   `yarn lint` to check the code style.
+- Typescript is used for type checking and better development productivity.
