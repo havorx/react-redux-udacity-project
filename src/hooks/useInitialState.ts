@@ -30,7 +30,12 @@ export const useInitialState = () => {
     questionId: any,
     option: any
   ) => {
-    saveQuestionAnswerThunk(authState, questionId, option)(dispatch);
+    console.log(1111, authState, questionId, option);
+    saveQuestionAnswerThunk({
+      authUser: authState,
+      qid: questionId,
+      answer: option,
+    })(dispatch);
   };
 
   return {

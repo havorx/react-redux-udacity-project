@@ -1,0 +1,21 @@
+.login-card {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.login-card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-img-logo {
+  display: block;
+  margin: 0 auto;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.login-btn {
+  width: 100%;
+  text-align: center;
+}

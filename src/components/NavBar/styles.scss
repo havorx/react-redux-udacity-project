@@ -1,0 +1,52 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid;
+  height: 4rem;
+  gap: 8px;
+
+  &-right {
+    display: flex;
+    align-items: end;
+    gap: 1.5rem;
+  }
+
+  &-logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.nav-tab {
+  padding: 5px;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  &-item {
+    transition: background 0.5s;
+  }
+
+  &-item:hover {
+    color: #0d6efd !important;
+  }
+
+
+  .active-nav-tab {
+    color: #0d6efd !important;
+    padding: 5px;
+    text-decoration: underline;
+  }
+
+  a {
+    text-decoration: none;
+    color: unset;
+  }
+}
