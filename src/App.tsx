@@ -1,34 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import HomePage from "./pages/HomePage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useInitialState } from "./hooks/useInitialState";
+import { useEffect } from "react";
+import Navbar from "./components/NavBar";
+import NewQuestion from "./components/Question/NewQuestion";
+import QuestionDetail from "./components/Question/QuestionDetail";
+import LeaderBoard from "./components/LeaderBoard";
+import { useSelector } from "react-redux";
+import { RootState } from "./rootReducer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { handleInitialState } = useInitialState();
+  const { data: isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    handleInitialState();
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <Navbar />
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<ProtectedRoute component={HomePage} />} />
+
+          <Route path="login" element={<LoginPage />} />
+          <Route
+            path="new-question"
+            element={<ProtectedRoute component={NewQuestion} />}
+          />
+          <Route
+            path="questions/:questionId"
+            element={<ProtectedRoute component={QuestionDetail} />}
+          />
+          <Route
+            path="leaderboard"
+            element={<ProtectedRoute component={LeaderBoard} />}
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
